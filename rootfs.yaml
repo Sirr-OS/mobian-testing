@@ -30,7 +30,6 @@ actions:
 
   - action: apt
     description: Install mobian-archive-keyring
-    recommends: false
     packages:
       - ca-certificates
       - mobian-archive-keyring
