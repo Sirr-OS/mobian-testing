@@ -10,7 +10,7 @@
 {{- $zram := or .zram "false" -}}
 {{- $bootstart := or .bootstart "1MiB" }}
 {{- $nonfree := or .nonfree "false" -}}
-{{- $rootfs := or .rootfs "rootfs.tar.gz" }}
+{{- $rootfs := or .rootfs "rootfs.tar.xz" }}
 {{- $password := or .password "1234" -}}
 {{- $crypt_password := or .crypt_password $password -}}
 {{- $crypt_root := or .crypt_root "false" -}}

@@ -9,7 +9,7 @@
 {{- $zram:= or .zram "false" -}}
 {{- $debian_suite := or .debian_suite "forky" -}}
 {{- $suite := or .suite $debian_suite -}}
-{{- $rootfs := or .rootfs "rootfs.tar.gz" }}
+{{- $rootfs := or .rootfs "rootfs.tar.xz" }}
 {{- $mirror := or .mirror "http://deb.debian.org/debian" -}}
 
 architecture: {{ $architecture }}
@@ -95,3 +95,4 @@ actions:
 
   - action: pack
     file: {{ $rootfs }}
+    compression: xz

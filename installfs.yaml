@@ -5,7 +5,7 @@
 {{- $debian_suite := or .debian_suite "forky" -}}
 {{- $suite := or .suite $debian_suite -}}
 {{- $environment := or .environment "phosh" -}}
-{{- $installfs := or .installfs "installfs.tar.gz" }}
+{{- $installfs := or .installfs "installfs.tar.xz" }}
 {{- $mirror := or .mirror "http://deb.debian.org/debian" -}}
 
 architecture: {{ $architecture }}
@@ -57,3 +57,4 @@ actions:
 
   - action: pack
     file: {{ $installfs }}
+    compression: xz
