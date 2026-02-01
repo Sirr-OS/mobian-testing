@@ -5,7 +5,7 @@
 {{- $debian_suite := or .debian_suite "forky" -}}
 {{- $suite := or .suite $debian_suite -}}
 {{- $environment := or .environment "phosh" -}}
-{{- $installfs := or .installfs "installfs.tar.gz" }}
+{{- $installfs := or .installfs "installfs.tar.xz" }}
 {{- $mirror := or .mirror "http://deb.debian.org/debian" -}}
 
 architecture: {{ $architecture }}
@@ -20,7 +20,6 @@ actions:
 
   - action: apt
     description: Install mobian-archive-keyring
-    recommends: false
     packages:
       - ca-certificates
       - mobian-archive-keyring
@@ -31,7 +30,6 @@ actions:
     script: scripts/setup-apt.sh {{ $debian_suite }} {{ $suite }}
 
   - action: apt
-    recommends: false
     description: Install installer packages
     packages:
       - ca-certificates
@@ -59,3 +57,4 @@ actions:
 
   - action: pack
     file: {{ $installfs }}
+    compression: xz

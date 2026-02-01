@@ -107,7 +107,7 @@ case "${device}" in
     ;;
 esac
 
-installfs_file="installfs-${arch}.tar.gz"
+installfs_file="installfs-${arch}.tar.xz"
 
 image_file="mobian-${device}-${environment}-$(date +%Y%m%d)"
 if [ "$installer" ]; then
@@ -115,15 +115,15 @@ if [ "$installer" ]; then
   image_file="mobian-installer-${device}-${environment}-$(date +%Y%m%d)"
 fi
 
-rootfs_file="rootfs-${arch}-${environment}.tar.gz"
+rootfs_file="rootfs-${arch}-${environment}.tar.xz"
 if echo "${ARGS}" | grep -q "nonfree:true"; then
-  rootfs_file="rootfs-${arch}-${environment}-nonfree.tar.gz"
+  rootfs_file="rootfs-${arch}-${environment}-nonfree.tar.xz"
 fi
 
 # Cleanup previous artifacts if we're not re-using them
 if [ ! "${image_only}" ]; then
   rm -f "${rootfs_file}" "${installfs_file}" \
-        "rootfs-${device}-${environment}.tar.gz"
+        "rootfs-${device}-${environment}.tar.xz"
 fi
 
 if [ "${use_docker}" ]; then
@@ -164,7 +164,7 @@ ARGS="${ARGS} -t architecture:${arch} -t family:${family} -t device:${device} \
 
 if [ ! "${image_only}" ] || [ ! -f "${rootfs_file}" ]; then
   # Ensure subsequent artifacts are rebuilt too
-  rm -f "rootfs-${device}-${environment}.tar.gz"
+  rm -f "rootfs-${device}-${environment}.tar.xz"
   ${DEBOS_CMD} ${ARGS} rootfs.yaml
 fi
 
@@ -172,11 +172,11 @@ if [ "$installer" ]; then
   if [ ! "${image_only}" ] || [ ! -f "${installfs_file}" ]; then
     ${DEBOS_CMD} ${ARGS} installfs.yaml
   fi
-  if [ ! "${image_only}" ] || [ ! -f "rootfs-${device}-${environment}.tar.gz" ]; then
+  if [ ! "${image_only}" ] || [ ! -f "rootfs-${device}-${environment}.tar.xz" ]; then
     ${DEBOS_CMD} ${ARGS} "rootfs-device.yaml"
   fi
   # Convert rootfs tarball to squashfs for inclusion in the installer image
-  zcat "rootfs-${device}-${environment}.tar.gz" | tar2sqfs "rootfs-${device}-${environment}.sqfs" > /dev/null 2>&1
+  xzcat "rootfs-${device}-${environment}.tar.xz" | tar2sqfs "rootfs-${device}-${environment}.sqfs" > /dev/null 2>&1
 fi
 
 ${DEBOS_CMD} ${ARGS} "$image.yaml"

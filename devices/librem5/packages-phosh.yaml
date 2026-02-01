@@ -5,7 +5,6 @@ architecture: {{ $architecture }}
 
 actions:
   - action: apt
-    recommends: false
     description: Install device-specific packages for Phosh
     packages:
       - mobian-phosh-phone

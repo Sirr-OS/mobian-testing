@@ -9,7 +9,7 @@
 {{- $zram:= or .zram "false" -}}
 {{- $debian_suite := or .debian_suite "forky" -}}
 {{- $suite := or .suite $debian_suite -}}
-{{- $rootfs := or .rootfs "rootfs.tar.gz" }}
+{{- $rootfs := or .rootfs "rootfs.tar.xz" }}
 {{- $mirror := or .mirror "http://deb.debian.org/debian" -}}
 
 architecture: {{ $architecture }}
@@ -30,7 +30,6 @@ actions:
 
   - action: apt
     description: Install mobian-archive-keyring
-    recommends: false
     packages:
       - ca-certificates
       - mobian-archive-keyring
@@ -96,3 +95,4 @@ actions:
 
   - action: pack
     file: {{ $rootfs }}
+    compression: xz

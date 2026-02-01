@@ -10,7 +10,7 @@
 {{- $zram := or .zram "false" -}}
 {{- $bootstart := or .bootstart "1MiB" }}
 {{- $nonfree := or .nonfree "false" -}}
-{{- $rootfs := or .rootfs "rootfs.tar.gz" }}
+{{- $rootfs := or .rootfs "rootfs.tar.xz" }}
 {{- $password := or .password "1234" -}}
 {{- $crypt_password := or .crypt_password $password -}}
 {{- $crypt_root := or .crypt_root "false" -}}
@@ -55,7 +55,6 @@ actions:
 
 {{ if eq $filesystem "btrfs" }}
   - action: apt
-    recommends: false
     description: Install btrfs progs
     packages:
       - btrfs-progs
@@ -63,7 +62,6 @@ actions:
 
 {{ if eq $filesystem "f2fs" }}
   - action: apt
-    recommends: false
     description: Install F2FS tools
     packages:
       - f2fs-tools
@@ -89,7 +87,6 @@ actions:
 
 {{ if eq $miniramfs "true" }}
   - action: apt
-    recommends: true
     description: install miniramfs
     packages:
       - miniramfs
