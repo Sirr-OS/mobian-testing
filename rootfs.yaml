@@ -29,6 +29,7 @@ actions:
     variant: minbase
 
   - action: apt
+    recommends: true
     description: Install mobian-archive-keyring
     packages:
       - ca-certificates

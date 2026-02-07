@@ -55,6 +55,7 @@ actions:
 
 {{ if eq $filesystem "btrfs" }}
   - action: apt
+    recommends: true
     description: Install btrfs progs
     packages:
       - btrfs-progs
@@ -62,6 +63,7 @@ actions:
 
 {{ if eq $filesystem "f2fs" }}
   - action: apt
+    recommends: true
     description: Install F2FS tools
     packages:
       - f2fs-tools
@@ -87,6 +89,7 @@ actions:
 
 {{ if eq $miniramfs "true" }}
   - action: apt
+    recommends: true
     description: install miniramfs
     packages:
       - miniramfs

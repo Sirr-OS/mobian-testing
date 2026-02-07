@@ -5,6 +5,7 @@ architecture: {{ $architecture }}
 
 actions:
   - action: apt
+    recommends: true
     description: Install device-specific packages for Plasma Mobile
     packages:
 {{ if ne $device "pinetab2" }}

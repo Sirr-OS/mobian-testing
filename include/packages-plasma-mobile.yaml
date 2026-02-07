@@ -4,6 +4,7 @@ architecture: {{ $architecture }}
 
 actions:
   - action: apt
+    recommends: true
     description: Install Plasma Mobile packages
     packages:
       - mobian-plasma-mobile
