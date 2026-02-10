@@ -5,6 +5,7 @@ architecture: {{ $architecture }}
 
 actions:
   - action: apt
+    recommends: true
     description: Install device-specific base packages
     packages:
       - {{ $device }}-support

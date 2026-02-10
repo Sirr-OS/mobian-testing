@@ -19,6 +19,7 @@ actions:
     variant: minbase
 
   - action: apt
+    recommends: true
     description: Install mobian-archive-keyring
     packages:
       - ca-certificates
@@ -30,6 +31,7 @@ actions:
     script: scripts/setup-apt.sh {{ $debian_suite }} {{ $suite }}
 
   - action: apt
+    recommends: true
     description: Install installer packages
     packages:
       - ca-certificates

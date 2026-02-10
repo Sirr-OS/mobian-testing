@@ -4,6 +4,7 @@ architecture: {{ $architecture }}
 
 actions:
   - action: apt
+    recommends: true
     description: Install packages for full disk encryption
     packages:
       - unl0kr

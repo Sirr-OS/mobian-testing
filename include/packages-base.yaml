@@ -5,6 +5,7 @@ architecture: {{ $architecture }}
 
 actions:
   - action: apt
+    recommends: true
     description: Install base packages
     packages:
       - mobian-base
