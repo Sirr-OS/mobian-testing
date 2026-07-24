@@ -62,6 +62,11 @@ mount /dev/mapper/root $ROOTDIR
 if [ "${BOOTONROOT}" != "true" ]; then
     mkdir -p $ROOTDIR/boot
     mount ${TARGET_DISK}${PART}${BOOTNR} $ROOTDIR/boot
+    # Mount the ESP on amd64
+    if [ "${ARCHITECTURE}" = "amd64" ]; then
+        mkdir -p $ROOTDIR/boot/efi
+        mount ${TARGET_DISK}${PART}1 $ROOTDIR/boot/efi
+    fi
 fi
 
 # get root partition UUID
@@ -71,6 +76,9 @@ echo "Create fstab"
 echo "/dev/mapper/root	/	${FILESYSTEM}	defaults,noatime,x-systemd.growfs	0	1" > $ROOTDIR/etc/fstab
 if [ "${BOOTONROOT}" != "true" ]; then
     echo "LABEL=boot		/boot	ext4	defaults,noatime,x-systemd.growfs	0	1" >> $ROOTDIR/etc/fstab
+    if [ "${ARCHITECTURE}" = "amd64" ]; then
+        echo "${TARGET_DISK}${PART}1	/boot/efi	vfat	defaults	0	1" >> $ROOTDIR/etc/fstab
+    fi
 fi
 
 echo "Create crypttab"
