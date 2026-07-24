@@ -4,9 +4,17 @@ set -e
 
 PASSWORD="${1}"
 BOOTONROOT="${2}"
+ARCHITECTURE="${3}"
 
 PART=""
 PARTNR=2
+BOOTNR=1
+
+# amd64 has a separate ESP partition - see ./include/partition-gpt.yaml: $has_esp_partition
+if [ "${ARCHITECTURE}" = "amd64" ]; then
+    PARTNR=3
+    BOOTNR=2
+fi
 
 lsblk -n -o kname,pkname,mountpoint
 if [ -e /dev/vda1 ]; then
@@ -53,7 +61,7 @@ fi
 mount /dev/mapper/root $ROOTDIR
 if [ "${BOOTONROOT}" != "true" ]; then
     mkdir -p $ROOTDIR/boot
-    mount ${TARGET_DISK}${PART}1 $ROOTDIR/boot
+    mount ${TARGET_DISK}${PART}${BOOTNR} $ROOTDIR/boot
 fi
 
 # get root partition UUID
