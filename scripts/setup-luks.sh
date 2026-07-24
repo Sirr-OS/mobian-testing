@@ -52,6 +52,7 @@ fi
 # remount partitions
 mount /dev/mapper/root $ROOTDIR
 if [ "${BOOTONROOT}" != "true" ]; then
+    mkdir -p $ROOTDIR/boot
     mount ${TARGET_DISK}${PART}1 $ROOTDIR/boot
 fi
 
