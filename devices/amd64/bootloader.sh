@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Recreate missing /dev/mapper/* device nodes (e.g. crypt_root's setup-luks.sh)
+if command -v dmsetup >/dev/null 2>&1; then
+    dmsetup mknodes
+fi
+
 # Refresh /boot/grub/grub.cfg
 update-grub
 
